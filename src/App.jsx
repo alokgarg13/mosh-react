@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router';
 import Movies from './components/movies';
 import Counters from './components/counters';
 import Navbar from './components/navbar';
@@ -59,6 +60,7 @@ class App extends Component {
     return (
       <main role="main" className="container">
         <Navbar totalCounters={this.state.count} />
+        {/* <Route path="/movies" component={movies} /> */}
         <Movies />
         <Counters
           counters = {this.state.counters}
