@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect} from 'react-router';
-import Movies from './components/movies/movies';
 import Counters from './components/counter/counters';
 import Navbar from './components/navbar';
 import Products from './components/products/products';
 import ProductDetails from './components/products/productDetails';
 import Posts from './components/posts/posts';
 import Home from './components/home';
-import './App.css';
 import NotFound from './components/notFound';
 import Dashboard from './components/admin/dashboard';
-
-
-
+import MovieDashboard from './components/movies/movieDashboard';
+import './App.css';
+import LoginForm from './components/users/login';
 
 class App extends Component {
   state = { 
@@ -51,7 +49,7 @@ class App extends Component {
 
   handleCoutnerReset = () => {
       const counters = [...this.state.counters];
-      counters.map(c => {
+      counters.map(c=> {
           c.value = 0;
       });
       this.setState({counters, count: 0});
@@ -71,7 +69,8 @@ class App extends Component {
         <Navbar totalCounters={this.state.count} />
         <div className="content">
           <Switch>
-            <Route path="/movies" render={(props) => <Movies  {...props}/>} />
+            <Route path="/user/login" component={LoginForm}/>
+            <Route path="/movies" component={MovieDashboard}/>
             <Route 
               path="/counters" 
               render={(props)=> <Counters 

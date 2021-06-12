@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Pagination = (props) => {
    
@@ -16,22 +16,22 @@ const Pagination = (props) => {
         <nav aria-label="Page navigation example">
             <ul className="pagination">
                 <li key="previous" className="page-item">
-                <Link to="/movies" className="page-link" aria-label="Previous">
+                <NavLink to="/movies" className="page-link" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
-                </Link>
+                </NavLink>
                 </li>
                 {pages.map(page => 
                     <li 
                         key={page} className={page === currentPage ? 'pointer page-item active' : 'pointer page-item'} 
                         onClick={()=>onPageChange(page)}
                     >
-                        <Link to="/movies" className="page-link">{page}</Link>
+                        <NavLink to="/movies/list" className="page-link">{page}</NavLink>
                     </li>
                 )}
                 <li key="next" className="page-item">
-                <Link to="/movies" className="page-link" aria-label="Next">
+                <NavLink to="/movies" className="page-link" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                </Link>
+                </NavLink>
                 </li>
             </ul>
         </nav>

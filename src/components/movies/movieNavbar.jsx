@@ -14,13 +14,9 @@ const MovieNavBar = (props) => {
                 </span>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
-                        <NavLink className="nav-link" to="/movies">Movies</NavLink>
-                        <NavLink className="nav-link" to="/counters">Counters</NavLink>
-                        <NavLink className="nav-link" to="/products">Products</NavLink>
-                        <NavLink className="nav-link" to="/posts">Posts</NavLink>
-                        <NavLink className="nav-link" to="/admin">Admin</NavLink>
-                        <NavLink className="nav-link disabled" to="#" tabIndex="-1" aria-disabled="true">Disabled</NavLink>
+                        <NavLink className="nav-link" to="/movies/list">Movies</NavLink>
+                        <NavLink className="nav-link" to="/movies/customers">Customers</NavLink>
+                        <NavLink className="nav-link" to="/movies/rentals">Rentals</NavLink>
                     </div>
                 </div>
             </div>

@@ -11,8 +11,8 @@ const Dashboard = ({ match }) => {
       <h1>Admin Dashboard</h1>
       <SideBar />
       <Switch>
-        <Route to="/admin/users" exact  component={Users} />
-        <Route to="/admin/posts" exact component={Posts} />
+        <Route path="/admin/users" exact  component={Users} />
+        <Route path="/admin/posts" exact component={Posts} />
       </Switch>
     </div>
   );

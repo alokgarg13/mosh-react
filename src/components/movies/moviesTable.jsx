@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import Table from './../common/table';
 import Like from './../common/like';
+import { NavLink } from 'react-router-dom';
+
 
 
 class MoviesTable extends Component {
     
     columns = [
-        {path: 'title', label : 'Title'},
+        {
+            path: 'title', 
+            label : 'Title', 
+            content: movie => (
+                <NavLink to={`/movies/details/${movie._id}`}>{movie.title}</NavLink>
+            )
+        },
         {path: 'genre.name', label : 'Genre'},
         {path: 'numberInStock', label : 'Stock'},
         {path: 'dailyRentalRate', label : 'Rate'},
