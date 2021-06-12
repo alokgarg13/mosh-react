@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import Movies from './components/movies';
-import Counters from './components/counters';
+import { Route, Switch, Redirect} from 'react-router';
+import Movies from './components/movies/movies';
+import Counters from './components/counter/counters';
 import Navbar from './components/navbar';
+import Products from './components/products/products';
+import ProductDetails from './components/products/productDetails';
+import Posts from './components/posts/posts';
+import Home from './components/home';
 import './App.css';
+import NotFound from './components/notFound';
+import Dashboard from './components/admin/dashboard';
+
+
+
 
 class App extends Component {
   state = { 
@@ -60,15 +69,29 @@ class App extends Component {
     return (
       <main role="main" className="container">
         <Navbar totalCounters={this.state.count} />
-        {/* <Route path="/movies" component={movies} /> */}
-        <Movies />
-        <Counters
-          counters = {this.state.counters}
-          onhandleCounterValue = {this.handleCounterValue}
-          onhandleCounterDelete = {this.handleCounterDelete}
-          onhandleCoutnerReset = {this.handleCoutnerReset}
-        />
-  
+        <div className="content">
+          <Switch>
+            <Route path="/movies" render={(props) => <Movies  {...props}/>} />
+            <Route 
+              path="/counters" 
+              render={(props)=> <Counters 
+                      counters = {this.state.counters}
+                      onhandleCounterValue = {this.handleCounterValue}
+                      onhandleCounterDelete = {this.handleCounterDelete}
+                      onhandleCoutnerReset = {this.handleCoutnerReset}
+                      {...props} 
+                  />} 
+            />
+            <Route path="/products/:id" component={ProductDetails} />
+            <Route path="/products" component={Products} />
+            <Route path="/posts/:year?/:month?" component={Posts} />
+            <Route path="/admin" component={Dashboard} />
+            <Redirect from="/messages" to="/posts" />
+            <Route path="/not-found" component={NotFound} />
+            <Route path="/" exact component={Home} />
+            <Redirect to="/not-found"/>   
+          </Switch>
+        </div>
       </main>
     );
   }
