@@ -11,6 +11,7 @@ import Dashboard from './components/admin/dashboard';
 import MovieDashboard from './components/movies/movieDashboard';
 import './App.css';
 import LoginForm from './components/users/login';
+import UserRegistration from './components/users/userRegistration';
 
 class App extends Component {
   state = { 
@@ -70,6 +71,7 @@ class App extends Component {
         <div className="content">
           <Switch>
             <Route path="/user/login" component={LoginForm}/>
+            <Route path="/user/register" component={UserRegistration}/>
             <Route path="/movies" component={MovieDashboard}/>
             <Route 
               path="/counters" 
