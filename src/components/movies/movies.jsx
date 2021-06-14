@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getMovies } from '../../services/fakeMovieService';
+// import { getMovies } from '../../services/fakeMovieService';
 import { getGenres } from '../../services/fakeGenreService';
 // import Genres from './genres';
 import MoviesTable from './moviesTable';
@@ -9,9 +9,10 @@ import { paginate } from './../../utils/paginate';
 import ListGroup from './../common/listGroup';
 import _ from 'lodash';
 
+
 class Movies extends Component {
     state = { 
-        movies: [],
+        // movies: [],
         genres: [],
         pageSize: 4,
         currentPage: 1,
@@ -20,7 +21,7 @@ class Movies extends Component {
      }
 
     //  handleDelete = (id) => {
-    //     let movies = this.state.movies;
+    //     let movies = this.props.movies;
     //     let movieInDb = movies.find(m => m._id === id);
     //     movies.splice(movies.indexOf(movieInDb), 1);
     //     this.setState({movies : movies});
@@ -29,21 +30,23 @@ class Movies extends Component {
     componentDidMount() {
         const genres = [{_id:'', name: 'All Genres'}, ...getGenres()];
         this.setState({
-                movies: getMovies(),
+                // movies: getMovies(),
                 genres: genres
         });
     }
 
     handleDelete = (movie) => {
-        const movies = this.state.movies.filter( mv => mv._id !== movie._id);
-        this.setState({movies : movies});
+        const movies = this.props.movies.filter( mv => mv._id !== movie._id);
+        //this.setState({movies : movies});
+        this.props.onMoviesChanges(movies);
     }
 
     handleLikeDislike = (movie)  => {
-        const movies = [...this.state.movies];
+        const movies = [...this.props.movies];
         const index = movies.indexOf(movie);
         movies[index].liked = !movies[index].liked;
-        this.setState({movies});
+        // this.setState({movies});
+        this.props.onMoviesChanges(movies);
     }
 
     handlePageChange = (page) => {
@@ -59,7 +62,8 @@ class Movies extends Component {
     }
 
     getPagedata = () => {
-        const { pageSize, currentPage, selectedGenre, sortColumn, movies: allMovies} = this.state;
+        const { pageSize, currentPage, selectedGenre, sortColumn} = this.state;
+        const { movies: allMovies} = this.props;
        
         const filtered = (selectedGenre && selectedGenre._id !== "") 
                             ? allMovies.filter(movie => movie.genre._id === selectedGenre._id)
@@ -71,7 +75,7 @@ class Movies extends Component {
     }
 
     render() { 
-        const { length: count } = this.state.movies;
+        const { length: count } = this.props.movies;
         if(count === 0 ) return <p>There is no movies in the list. </p>;
 
         const { pageSize, currentPage,  sortColumn, selectedGenre} = this.state;
@@ -87,6 +91,12 @@ class Movies extends Component {
                     />
                 </div>
                 <div className="col">
+                    <button 
+                        className="btn btn-primary"
+                        onClick={()=> this.props.history.push("/movies/list/new")}
+                    >
+                        New Movie
+                    </button>
                     <p>Showing {totalCount} Movies in the Datatbase</p>
                     <MoviesTable 
                         movies= {movies} 

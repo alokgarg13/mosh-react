@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
+import SelectControl from './select';
 import InputControl from './input';
+
 
 class Form extends Component {
     state = {
@@ -28,7 +30,6 @@ class Form extends Component {
     }
 
     handleChange = ({currentTarget: input}) => {
-
         const errors = {...this.state.errors};
         const errorMessage = this.validateProperty(input);
         if(errorMessage) errors[input.name] = errorMessage;
@@ -47,8 +48,9 @@ class Form extends Component {
         this.doSubmit();
     }
 
-    renderButton(label) {
-        return <button disabled={this.validate()} className="btn btn-primary mt-3">
+    renderButton(label, isDisable=false) {
+        const disabled = (isDisable === true ? this.validate() : isDisable);
+        return <button disabled={disabled} className="btn btn-primary my-3 mx-1">
             {label}
         </button>;
     }
@@ -65,16 +67,23 @@ class Form extends Component {
                 error={errors[name]}
             />
         );
+    }
 
-            // <Input 
-            //     name="username"
-            //     label="Username"
-            //     value={data.username}
-            //     onChange={this.handleChange} 
-            //     error={errors.username}
-            // />
+    renderSelect(name, label, options, currentvalue="") {
+        const { data, errors } = this.state;
+        return (
+            <SelectControl 
+                name={name}
+                value={data[name]}
+                label={label}
+                options={options}
+                currentValue={currentvalue}
+                onChange={this.handleChange} 
+                error={errors[name]}
+            />
+        );
     }
     
 }
- 
 export default Form;
+ 

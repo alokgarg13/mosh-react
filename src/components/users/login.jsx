@@ -14,6 +14,7 @@ class LoginForm extends Form {
     }
 
     doSubmit = () => {
+        console.log(this.state.data);
         console.warn('form submitted from here');
     }
 

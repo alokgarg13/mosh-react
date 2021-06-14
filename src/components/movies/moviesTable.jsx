@@ -12,7 +12,7 @@ class MoviesTable extends Component {
             path: 'title', 
             label : 'Title', 
             content: movie => (
-                <NavLink to={`/movies/details/${movie._id}`}>{movie.title}</NavLink>
+                <NavLink to={`/movies/list/${movie._id}`}>{movie.title}</NavLink>
             )
         },
         {path: 'genre.name', label : 'Genre'},

@@ -11,7 +11,6 @@ const Pagination = (props) => {
 
     const pages = _.range(1, pagesCount + 1);
     
-
     return ( 
         <nav aria-label="Page navigation example">
             <ul className="pagination">
