@@ -1,0 +1,4 @@
+{
+  "apiEndPoint_1" : "https://jsonplaceholder.typicode.com/posts",
+  "apiEndPoint" : "https://my-json-server.typicode.com/typicode/demo/posts"
+}

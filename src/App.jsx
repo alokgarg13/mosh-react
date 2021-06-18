@@ -9,9 +9,10 @@ import Home from './components/home';
 import NotFound from './components/notFound';
 import Dashboard from './components/admin/dashboard';
 import MovieDashboard from './components/movies/movieDashboard';
-import './App.css';
 import LoginForm from './components/users/login';
 import UserRegistration from './components/users/userRegistration';
+import HttpDashboard from './components/http-app/httpDashboard';
+import './App.css';
 
 class App extends Component {
   state = { 
@@ -88,6 +89,7 @@ class App extends Component {
             <Route path="/posts/:year?/:month?" component={Posts} />
             <Route path="/admin" component={Dashboard} />
             <Redirect from="/messages" to="/posts" />
+            <Route path="/http-dashboard" component={HttpDashboard} />
             <Route path="/not-found" component={NotFound} />
             <Route path="/" exact component={Home} />
             <Redirect to="/not-found"/>   

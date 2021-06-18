@@ -21,6 +21,7 @@ class Navbar extends Component {
                                 <NavLink className="nav-link" to="/counters">Counters</NavLink>
                                 <NavLink className="nav-link" to="/products">Products</NavLink>
                                 <NavLink className="nav-link" to="/posts">Posts</NavLink>
+                                <NavLink className="nav-link" to="/http-dashboard/http-posts" exact>Http Posts</NavLink>
                                 <NavLink className="nav-link" to="/admin">Admin</NavLink>
                                 <NavLink className="nav-link" to="/user/login">Login</NavLink>
                                 <NavLink className="nav-link" to="/user/register">Register</NavLink>
