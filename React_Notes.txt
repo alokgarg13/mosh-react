@@ -1,0 +1,59 @@
+Configure React
+
+App:
+https://sentry.io/akglearning/react-app-all/getting-started/javascript-react/
+
+
+Full Documentation:
+https://docs.sentry.io/platforms/javascript/guides/react/?_ga=2.44692962.737155525.1624063978-925487284.1624063978
+
+
+*************************************************************
+
+
+# Using yarn
+yarn add @sentry/react @sentry/tracing
+
+# Using npm
+npm install --save @sentry/react @sentry/tracing
+
+*****************************************************************
+
+import React from "react";
+import ReactDOM from "react-dom";
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
+import App from "./App";
+
+Sentry.init({
+  dsn: "https://3f5d4255478c4546983daa7018a5503d@o432736.ingest.sentry.io/5823979",
+  integrations: [new Integrations.BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
+// Can also use with React Concurrent Mode
+// ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+*******************************************************************************************
+
+The above configuration captures both error and performance data. To reduce the volume of performance data captured, change tracesSampleRate to a value between 0 and 1.
+
+After this step, Sentry will report any uncaught exceptions triggered by your application.
+
+You can trigger your first event from your development environment by raising an exception somewhere within your application. An example of this would be rendering a button whose onClick handler attempts to invoke a method that does not exist:
+
+
+return <button onClick={methodDoesNotExist}>Break the world</button>;
+
+*************************************************
+
+
+Once you've verified the library is initialized properly and sent a test event, consider visiting our complete React docs. There you'll find additional instructions for surfacing valuable context from React error boundaries, React Router, Redux, and more.
+
+********************************************************************************
