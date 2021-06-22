@@ -18,6 +18,7 @@ class Navbar extends Component {
                             <div className="navbar-nav">
                                 <NavLink className="nav-link" to="/">Home</NavLink>
                                 <NavLink className="nav-link" to="/movies/list">Movies</NavLink>
+                                <NavLink className="nav-link" to="/mongo-movies/list">Mongo Movies</NavLink>
                                 <NavLink className="nav-link" to="/counters">Counters</NavLink>
                                 <NavLink className="nav-link" to="/products">Products</NavLink>
                                 <NavLink className="nav-link" to="/posts">Posts</NavLink>

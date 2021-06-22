@@ -1,0 +1,6 @@
+{
+  "jsonPlaceHolder_ApiEndPoint" : "https://jsonplaceholder.typicode.com/posts",
+  "myJsonServer_ApiEndPoint" : "https://my-json-server.typicode.com/typicode/demo/posts",
+  "nodeGenres_ApiEndPoint" : "http://localhost:3900/api/genres",
+  "nodeMovies_ApiEndPoint" : "http://localhost:3900/api/movies"
+}

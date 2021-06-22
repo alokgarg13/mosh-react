@@ -5,12 +5,14 @@ import HttpForm from './httpForm';
 import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import _ from "lodash";
-import httpAxios from './services/httpAxiosService';
-import config from './services/config.json';
+import httpAxios from '../../services/httpAxiosService';
+import config from '../../services/config.json';
 import 'react-toastify/dist/ReactToastify.css';
-import logServices  from "./services/logServices";
+import logServices  from "../../services/logServices";
 
 logServices.init();
+
+const apiEndPoint = config.myJsonServer_ApiEndPoint;
 
 class HttpDashboard extends Component {
   state = {
@@ -18,22 +20,22 @@ class HttpDashboard extends Component {
   };
 
   async componentDidMount() {
-      const result = await httpAxios.get(config.apiEndPoint);
+      const result = await httpAxios.get(apiEndPoint);
       this.setState({posts: result.data});
   }
 
   handleAdd = async (post) => {
 
-    const {data: newPost} = await httpAxios.post(config.apiEndPoint, post);
+    const {data: newPost} = await httpAxios.post(apiEndPoint, post);
     const posts = [newPost, ...this.state.posts];
     this.setState({posts});
   };
 
   handleUpdate = async (post) => {
 
-    await httpAxios.put(`${config.apiEndPoint}/${post.id}`, post);
+    await httpAxios.put(`${apiEndPoint}/${post.id}`, post);
   
-    const { data: originalPost } = await httpAxios.get(`${config.apiEndPoint}/${post.id}`);
+    const { data: originalPost } = await httpAxios.get(`${apiEndPoint}/${post.id}`);
     const posts = [...this.state.posts];
     const index = _.findIndex(posts, originalPost);
     posts[index] =  {...post};
@@ -47,8 +49,7 @@ class HttpDashboard extends Component {
     const posts = this.state.posts.filter(p => p.id !== post.id);
     this.setState({posts});
     try {
-     await httpAxios.delete(`ss${config.apiEndPoint}/${post.id}`);
-
+     await httpAxios.delete(`${apiEndPoint}/${post.id}`);
     }
     catch(ex) {
       if(ex.response && ex.response.status === 404) {
@@ -86,7 +87,7 @@ class HttpDashboard extends Component {
                 path="/http-dashboard/http-posts/:id" exact
                 render={(props) => 
                     <HttpForm 
-                        apiEndPoint = {config.apiEndPoint}
+                        apiEndPoint = {apiEndPoint}
                         posts={posts} 
                         onHandleAdd={this.handleAdd}
                         onHandleUpdate={this.handleUpdate}
@@ -95,7 +96,7 @@ class HttpDashboard extends Component {
             <Route 
                 path="/http-dashboard/http-posts" exact
                 render={(props) => <HttpPosts 
-                    apiEndPoint = {config.apiEndPoint}
+                    apiEndPoint = {apiEndPoint}
                     posts={posts} 
                     onDelete={this.handleDelete}
                     {...props}/> }

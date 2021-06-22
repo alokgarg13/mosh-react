@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 const Pagination = (props) => {
    
-    const {itemsCount, pageSize, currentPage, onPageChange} = props;
+    const {itemsCount, pageSize, currentPage, basePath, onPageChange} = props;
     const pagesCount = Math.ceil(itemsCount / pageSize) ;
     if(pagesCount === 1) return null;
 
@@ -15,7 +15,7 @@ const Pagination = (props) => {
         <nav aria-label="Page navigation example">
             <ul className="pagination">
                 <li key="previous" className="page-item">
-                <NavLink to="/movies" className="page-link" aria-label="Previous">
+                <NavLink to={basePath} className="page-link" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </NavLink>
                 </li>
@@ -24,11 +24,12 @@ const Pagination = (props) => {
                         key={page} className={page === currentPage ? 'pointer page-item active' : 'pointer page-item'} 
                         onClick={()=>onPageChange(page)}
                     >
-                        <NavLink to="/movies/list" className="page-link">{page}</NavLink>
+                        
+                        <NavLink to={`${basePath}/list`} className="page-link">{page}</NavLink>
                     </li>
                 )}
                 <li key="next" className="page-item">
-                <NavLink to="/movies" className="page-link" aria-label="Next">
+                <NavLink to={basePath} className="page-link" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </NavLink>
                 </li>

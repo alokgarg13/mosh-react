@@ -6,9 +6,10 @@ class HttpPosts extends Component {
     posts: []
   };
 
-  async componentDidMount() {
-      const result = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      this.setState({posts: result.data});
+  componentDidMount() {
+      // const result = await axios.get('https://jsonplaceholder.typicode.com/posts');
+      // this.setState({posts: result.data});
+      this.setState({posts: this.props.posts});
   }
 
   handleAdd = () => {

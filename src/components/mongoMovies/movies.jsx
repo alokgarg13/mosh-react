@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-// import { getMovies } from '../../services/fakeMovieService';
-import { getGenres } from '../../services/fakeGenreService';
-// import Genres from './genres';
+import _ from 'lodash';
+import ListGroup from './../common/listGroup';
+import Pagination from './../common/pagination';
+import SearhBox from '../common/forms/searchBox';
+import { paginate } from './../../utils/paginate';
 import MoviesTable from './moviesTable';
 
-import Pagination from './../common/pagination';
-import { paginate } from './../../utils/paginate';
-import ListGroup from './../common/listGroup';
-import SearhBox from '../common/forms/searchBox';
-import _ from 'lodash';
-
+import httpAxios from '../../services/httpAxiosService';
+import config from '../../services/config.json';
 
 class Movies extends Component {
     state = { 
-        // movies: [],
         genres: [],
         pageSize: 3,
         currentPage: 1,
@@ -22,33 +19,22 @@ class Movies extends Component {
         sortColumn: {path: 'title', order: 'asc'}
      }
 
-    //  handleDelete = (id) => {
-    //     let movies = this.props.movies;
-    //     let movieInDb = movies.find(m => m._id === id);
-    //     movies.splice(movies.indexOf(movieInDb), 1);
-    //     this.setState({movies : movies});
-    //  }
-    
-    componentDidMount() {
-        const genres = [{_id:'', name: 'All Genres'}, ...getGenres()];
+   
+    async componentDidMount() {
+         const {data: genresList} = await httpAxios.get(config.nodeGenres_ApiEndPoint);
+        const genres = [{_id:'', name: 'All Genres'}, ...genresList];
         this.setState({
-                // movies: getMovies(),
                 genres: genres
         });
-    }
-
-    handleDelete = (movie) => {
-        const movies = this.props.movies.filter( mv => mv._id !== movie._id);
-        //this.setState({movies : movies});
-        this.props.onMoviesChanges(movies);
+        console.log(' here is movies compoent ');
+        return;
     }
 
     handleLikeDislike = (movie)  => {
         const movies = [...this.props.movies];
         const index = movies.indexOf(movie);
         movies[index].liked = !movies[index].liked;
-        // this.setState({movies});
-        this.props.onMoviesChanges(movies);
+        this.props.onMoviesChanges(movies); // need to chagne this
     }
 
     handlePageChange = (page) => {
@@ -72,7 +58,6 @@ class Movies extends Component {
         const { pageSize, currentPage, selectedGenre, searchQuery, sortColumn} = this.state;
         const { movies: allMovies} = this.props;
         
-        
         let filtered = allMovies;
 
         if(searchQuery && searchQuery !== "") {
@@ -90,12 +75,12 @@ class Movies extends Component {
 
    
     render() { 
-        console.log('Movies Rendering from Fake Service Movies Dashbaord');
         const { length: count } = this.props.movies;
         if(count === 0 ) return <p>There is no movies in the list. </p>;
 
         const { pageSize, currentPage,  sortColumn, selectedGenre, searchQuery } = this.state;
         const { totalCount, data: movies} = this.getPagedata();
+        const { basePath } = this.props;
         return (     
             <div className="row">
                 <div className="col-2">
@@ -108,11 +93,10 @@ class Movies extends Component {
                 <div className="col">
                     <button 
                         className="btn btn-primary"
-                        onClick={()=> this.props.history.push("/movies/list/new")}>
+                        onClick={()=> this.props.history.push(`${basePath}/list/new`)}>
                             New Movie
                     </button>
 
-                    
                     <SearhBox value={searchQuery}  onHandleSearch={this.handleSearch} />
 
                     <p>Showing {totalCount} Movies in the Datatbase</p>
@@ -120,13 +104,12 @@ class Movies extends Component {
                         movies= {movies} 
                         sortColumn={sortColumn}
                         onLikeDislike={this.handleLikeDislike}
-                        onDelete={this.handleDelete}
+                        onDelete={this.props.onHandleDeleteMovie}
                         onSort= {this.handleSortingMovies}
                     />
-
                     <Pagination 
+                        basePath= {basePath}
                         itemsCount = {totalCount}
-                        basePath = {this.props.basePath}
                         pageSize= {pageSize}
                         currentPage = {currentPage}
                         onPageChange={this.handlePageChange}

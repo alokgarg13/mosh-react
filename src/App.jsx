@@ -9,6 +9,7 @@ import Home from './components/home';
 import NotFound from './components/notFound';
 import Dashboard from './components/admin/dashboard';
 import MovieDashboard from './components/movies/movieDashboard';
+import MongoMovieDashboard from './components/mongoMovies/movieDashboard';
 import LoginForm from './components/users/login';
 import UserRegistration from './components/users/userRegistration';
 import HttpDashboard from './components/http-app/httpDashboard';
@@ -74,6 +75,7 @@ class App extends Component {
             <Route path="/user/login" component={LoginForm}/>
             <Route path="/user/register" component={UserRegistration}/>
             <Route path="/movies" component={MovieDashboard}/>
+            <Route path="/mongo-movies" component={MongoMovieDashboard}/>
             <Route 
               path="/counters" 
               render={(props)=> <Counters 

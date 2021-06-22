@@ -9,6 +9,7 @@ import NotFound from './../notFound';
 import MovieForm from './movieForm';
 import { getMovies } from '../../services/fakeMovieService';
 
+const basePath = "/movies";
 class MovieDashboard extends Component {
     state = { 
         movies: []
@@ -32,7 +33,11 @@ class MovieDashboard extends Component {
                         <MovieForm movies={this.state.movies} onMoviesChanges={this.handleMoviesChanges} {...props} />}  
                     />
                     <Route path="/movies/list" render={(props) => 
-                        <Movies movies={this.state.movies} onMoviesChanges={this.handleMoviesChanges} {...props} />}  
+                        <Movies 
+                            movies={this.state.movies} 
+                            basePath = {basePath}
+                            onMoviesChanges={this.handleMoviesChanges} 
+                            {...props} />}  
                     />
                     <Route path="/movies/customers" component={Customers}  />
                     <Route path="/movies/rentals" component={Rentals}  />
