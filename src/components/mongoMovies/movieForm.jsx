@@ -5,6 +5,7 @@ import Joi from 'joi-browser';
 import httpAxios from '../../services/httpAxiosService';
 import config from '../../services/config.json';
 import { getMovie, saveMovie } from '../../services/fakeMovieService';
+import { toast } from 'react-toastify';
 
 class MovieForm extends Form {
     state = {
@@ -32,10 +33,16 @@ class MovieForm extends Form {
         
         const movieId = this.props.match.params.id;
         if(movieId === "new") return;
-        const { data: movie } = await httpAxios.get(`${config.nodeMovies_ApiEndPoint}/${movieId}`);
-
-        if(!movie) return this.props.history.replace("/not-found");
-        this.setState({data: this.mapToViewModel(movie)});
+        try {
+            const { data: movie } = await httpAxios.get(`${config.nodeMovies_ApiEndPoint}/${movieId}`);
+            this.setState({data: this.mapToViewModel(movie)});
+        }
+        catch(ex) {
+            if(ex.response && ex.response === 404) {
+                this.props.history.replace(`${this.props.basePath}/not-found`);
+            }
+            // toast.error('Movie Not Found');
+        }
     }
 
     mapToViewModel(movie) {
@@ -51,8 +58,6 @@ class MovieForm extends Form {
         // const movie = saveMovie(this.state.data);
         const movie = this.state.data;
 
-        // console.log('movie form Do Submit ', movie)
-
         if(movie._id && movie._id != '') {
             this.props.onUpdateMovie(movie);
         }
@@ -62,7 +67,7 @@ class MovieForm extends Form {
         this.props.history.push(`${this.props.basePath}`);
     }
 
-    render() { 
+    render() {
             return (
             <div>
                 <h1>Add New Movie</h1>

@@ -5,8 +5,9 @@ import Movies from './movies';
 import Customers from './customers';
 import Rentals from './rentals';
 import MovieDetails from './movieDetails';
-import NotFound from './../notFound';
 import MovieForm from './movieForm';
+import MovieNotFound from './movieNotFound';
+
 
 import config from '../../services/config.json';
 import httpAxios from '../../services/httpAxiosService';
@@ -37,17 +38,10 @@ class MongoMovieDashboard extends Component {
 
     handleUpdateMovie = async (movie) => {
 
-        const {data: movieInDB} = await httpAxios.get(`${config.nodeMovies_ApiEndPoint}/${movie._id}`);
-        const {data: genre} = await httpAxios.get(`${config.nodeGenres_ApiEndPoint}/${movie.genreId}`);
+        const updatedMovie = {...movie};
+        delete updatedMovie._id; 
 
-        movieInDB.title = movie.title;
-        movieInDB.genreId = genre._id;
-        movieInDB.dailyRentalRate = movie.dailyRentalRate;
-        movieInDB.numberInStock = movie.numberInStock;
-        delete movieInDB['_id']; 
-        delete movieInDB['genre']; 
-    
-        const { data : newUpdatedMovie} = await httpAxios.put(`${config.nodeMovies_ApiEndPoint}/${movie._id}`, movieInDB); 
+        const { data : newUpdatedMovie} = await httpAxios.put(`${config.nodeMovies_ApiEndPoint}/${movie._id}`, updatedMovie); 
         let movies = this.state.movies.filter( mv => mv._id !== movie._id);
         movies = [...movies, newUpdatedMovie];
         this.setState({movies});
@@ -72,8 +66,6 @@ class MongoMovieDashboard extends Component {
             }
             this.setState({movies: originalMovies});
         }
-
-       
     }
 
     render() { 
@@ -103,7 +95,7 @@ class MongoMovieDashboard extends Component {
                     />
                     <Route path={`${basePath}/customers`} component={Customers}  />
                     <Route path={`${basePath}/rentals`} component={Rentals}  />
-                    <Route path={`${basePath}/not-found`} component={NotFound}  />
+                    <Route path={`${basePath}/not-found`} component={MovieNotFound}  />
                     <Redirect from={`${basePath}`} exact to={`${basePath}/list`} />
                     <Redirect to={`${basePath}/not-found`}/>
                 </Switch>
