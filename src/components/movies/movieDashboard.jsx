@@ -30,7 +30,10 @@ class MovieDashboard extends Component {
                 <Switch>
                     <Route path="/movies/details/:id?" exact component={MovieDetails}  />
                     <Route path="/movies/list/:id" render={(props) => 
-                        <MovieForm movies={this.state.movies} onMoviesChanges={this.handleMoviesChanges} {...props} />}  
+                        <MovieForm 
+                            movies={this.state.movies} 
+                            onMoviesChanges={this.handleMoviesChanges} 
+                            {...props} />}  
                     />
                     <Route path="/movies/list" render={(props) => 
                         <Movies 

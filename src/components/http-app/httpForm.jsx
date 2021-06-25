@@ -49,6 +49,10 @@ class HttpForm extends Form {
         this.props.history.replace('/http-dashboard/http-posts');
      }
 
+     handleCancel = () => {
+        this.props.history.replace('/http-dashboard/http-posts')
+     }
+
     render() { 
         return ( 
             <div>
@@ -56,10 +60,8 @@ class HttpForm extends Form {
                 <form className="form" onSubmit={this.handleSubmit}>
                     {this.renderInput('title', 'Title')}
                     {this.renderInput('body', 'Body')}
-                    {this.renderButton('Save', true)}
-                    <button className="btn btn-primary" onClick={()=> this.props.history.replace('/http-dashboard/http-posts')}>
-                        Cancel
-                    </button>
+                    {this.renderButton('Save', 'submit')}
+                    {this.renderButton('Cancel', 'button', this.handleCancel)}
                 </form>
             </div>
          );

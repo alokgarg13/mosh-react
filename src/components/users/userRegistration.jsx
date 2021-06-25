@@ -24,6 +24,10 @@ class UserRegistration extends Form {
     console.log('register form submitted');
   }
 
+  handleCancel = () => {
+    this.props.history.push('/mongo-movies/list');
+  }
+
   render() {
     return (
       <div>
@@ -34,7 +38,8 @@ class UserRegistration extends Form {
               {this.renderInput('email', 'Email', "text")}
               {this.renderInput('username', 'Username', "text")}
               {this.renderInput('password', 'Password', "password")}
-            {this.renderButton('Register')}
+              {this.renderButton('Register', 'submit')}
+              {this.renderButton('Cancel', '', this.handleCancel)}
           </form>
         </div>
       </div>

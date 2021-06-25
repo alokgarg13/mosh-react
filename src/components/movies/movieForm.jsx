@@ -45,11 +45,14 @@ class MovieForm extends Form {
             dailyRentalRate: movie.dailyRentalRate
         }
     }
-    doSubmit = () => {
+    doSubmit = () => { 
         const movie = saveMovie(this.state.data);
-        const movies = [...this.props.movies, movie]
-        this.props.onMoviesChanges(movies);
+        const movies = [...this.props.movies, movie];
         this.props.history.push("/movies");
+    }
+
+    handleCancel = () => {
+        this.props.history.replace("/movies/list");
     }
 
     render() { 
@@ -61,12 +64,8 @@ class MovieForm extends Form {
                     {this.renderSelect('genreId', "Genre", this.state.genres, this.state.data.genreId)}
                     {this.renderInput('numberInStock', 'Number in Stock', "text")}
                     {this.renderInput('dailyRentalRate', 'Rate', "text")}
-                    {this.renderButton('Save', true)}
-                    {/* {this.renderButton('Cancel', false)} */}
-                    <button 
-                        className="btn btn-primary"
-                        onClick={()=> this.props.history.replace("/movies/list")}
-                    >Cancel</button>
+                    {this.renderButton('Save', 'submit')}
+                    {this.renderButton('Cancel', 'button', this.handleCancel)}
                 </form>
             </div>
         );

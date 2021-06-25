@@ -26,6 +26,7 @@ class Navbar extends Component {
                                 <NavLink className="nav-link" to="/admin">Admin</NavLink>
                                 <NavLink className="nav-link" to="/user/login">Login</NavLink>
                                 <NavLink className="nav-link" to="/user/register">Register</NavLink>
+                                <NavLink className="nav-link" to="/user/signup">Sign Up</NavLink>
                                 <NavLink className="nav-link disabled" to="#" tabIndex="-1" aria-disabled="true">Disabled</NavLink>
                             </div>
                         </div>

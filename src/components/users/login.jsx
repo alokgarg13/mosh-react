@@ -18,6 +18,10 @@ class LoginForm extends Form {
         console.warn('form submitted from here');
     }
 
+    handleCancel = () => {
+      this.props.history.push('/mongo-movies/list');
+    }
+
     render() {
     return (
       <div>
@@ -25,7 +29,8 @@ class LoginForm extends Form {
         <form className="form" onSubmit={this.handleSubmit}>
             {this.renderInput('username', 'Username')}
             {this.renderInput('password', 'Password', 'password')}
-            {this.renderButton('Login')}
+            {this.renderButton('Login', 'submit')}
+            {this.renderButton('Cancel', 'button', this.handleCancel)}
         </form>
       </div>
     );

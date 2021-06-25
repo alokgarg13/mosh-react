@@ -48,11 +48,16 @@ class Form extends Component {
         this.doSubmit();
     }
 
-    renderButton(label, isDisable=false) {
-        const disabled = (isDisable === true ? this.validate() : isDisable);
-        return <button disabled={disabled} className="btn btn-primary my-3 mx-1">
-            {label}
-        </button>;
+    renderButton(label, type='button', action='') {
+        const disabled = (type === 'submit' ? this.validate() : false);
+        return <button 
+                type={type}
+                disabled={disabled}
+                {...(action !== '' ? {onClick: action} : '')}
+                className="btn btn-primary my-3 mx-1"
+            >
+                {label}
+            </button>;
     }
 
     renderInput(name, label, type) {

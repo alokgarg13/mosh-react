@@ -41,7 +41,7 @@ class MovieForm extends Form {
             if(ex.response && ex.response === 404) {
                 this.props.history.replace(`${this.props.basePath}/not-found`);
             }
-            // toast.error('Movie Not Found');
+            toast.error('Movie Not Found');
         }
     }
 
@@ -55,9 +55,7 @@ class MovieForm extends Form {
         }
     }
     doSubmit = () => {
-        // const movie = saveMovie(this.state.data);
         const movie = this.state.data;
-
         if(movie._id && movie._id != '') {
             this.props.onUpdateMovie(movie);
         }
@@ -66,6 +64,10 @@ class MovieForm extends Form {
         }
         this.props.history.push(`${this.props.basePath}`);
     }
+
+    handleCancel = () => {
+        this.props.history.replace("/mongo-movies/list")
+     }
 
     render() {
             return (
@@ -76,12 +78,8 @@ class MovieForm extends Form {
                     {this.renderSelect('genreId', "Genre", this.state.genres, this.state.data.genreId)}
                     {this.renderInput('numberInStock', 'Number in Stock', "text")}
                     {this.renderInput('dailyRentalRate', 'Rate', "text")}
-                    {this.renderButton('Save', true)}
-                    {/* {this.renderButton('Cancel', false)} */}
-                    <button 
-                        className="btn btn-primary"
-                        onClick={()=> this.props.history.replace("/mongo-movies/list")}
-                    >Cancel</button>
+                    {this.renderButton('Save', 'submit',)}
+                    {this.renderButton('Cancel', 'button', this.handleCancel)}
                 </form>
             </div>
         );

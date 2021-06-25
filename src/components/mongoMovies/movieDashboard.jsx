@@ -80,7 +80,6 @@ class MongoMovieDashboard extends Component {
                         <MovieForm 
                             movies={movies} 
                             basePath = {basePath}
-                            onMoviesChanges={this.handleMovieChanges} 
                             onAddNewMovie={this.handleAddNewMovie} 
                             onUpdateMovie={this.handleUpdateMovie} 
                             {...props} />}  
@@ -90,7 +89,6 @@ class MongoMovieDashboard extends Component {
                             movies={movies}
                             basePath = {basePath}
                             onHandleDeleteMovie = {this.handleDeleteMovie}
-                            // onMoviesChanges={this.handleMovieChanges}
                             {...props} />}  
                     />
                     <Route path={`${basePath}/customers`} component={Customers}  />

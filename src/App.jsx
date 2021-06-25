@@ -12,6 +12,7 @@ import MovieDashboard from './components/movies/movieDashboard';
 import MongoMovieDashboard from './components/mongoMovies/movieDashboard';
 import LoginForm from './components/users/login';
 import UserRegistration from './components/users/userRegistration';
+import SignUpUser from './components/users/signup';
 import HttpDashboard from './components/http-app/httpDashboard';
 import './App.css';
 
@@ -74,6 +75,7 @@ class App extends Component {
           <Switch>
             <Route path="/user/login" component={LoginForm}/>
             <Route path="/user/register" component={UserRegistration}/>
+            <Route path="/user/signup" component={SignUpUser}/>
             <Route path="/movies" component={MovieDashboard}/>
             <Route path="/mongo-movies" component={MongoMovieDashboard}/>
             <Route 
